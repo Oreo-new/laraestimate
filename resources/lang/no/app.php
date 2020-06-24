@@ -1,0 +1,88 @@
+<?php
+
+return [
+
+    'my_estimates' => 'Mine estimater',
+    'login' => 'Login',
+    'estimates' => 'Estimater',
+    'add_estimate' => 'Legg til estimat',
+    'create_estimate' => 'Opprett estimat',
+    'edit_estimate' => 'Endre estimat',
+    'no_estimates_found' => 'Ingen estimater funnet',
+    'estimate_created_successfully' => 'Estimate created successfully',
+    'deleted_successfully' => 'Deleted succesfully',
+    'settings_saved_successfully' => 'Settings saved successfully',
+    'edit_settings' => 'Endre settings',
+    'settings' => 'Innstillinger',
+    'users' => 'Brukere',
+    'estimate_content' => 'Estimat Body innhold',
+
+    'item_duration' => 'Antall (valgfritt)',
+    'item_description' => 'Beskrivelse',
+    'item_price' => 'Pris',
+    'use_name_as_title' => 'Bruk navn som tittel?',
+    'view_estimate' => 'Vis estimat',
+    'currency_symbol' => 'Valuta Symbol',
+    'currency_decimal_separator' => 'Desimalseparator',
+    'currency_thousands_separator' => 'Tusenseparator',
+    'text_section' => 'Tekstseksjon',
+    'prices_section' => 'Prisseksjon',
+    'all_changes_are_saved' => 'Alle endringer er lagret',
+    'saving' => 'Saving...',
+    'obligatory' => 'Obligatory?',
+    'add_item' => 'Add Item',
+    'add_text_section' => 'Add Text Section',
+    'add_prices_section' => 'Add Prices Section',
+
+    'sending_email' => 'Sender e-post...',
+    'share_estimate' => 'Del estimat',
+    'copy_this_link' => 'Kopier link',
+    'or_send_an_email' => 'eller send e-post',
+    'type_email_address_here' => 'Skriv e-post adresse her',
+    'description' => 'Beskrivelse',
+    'duration' => 'Antall',
+    'price' => 'Pris',
+    'section_total' => 'Totalpris',
+    'create_user' => 'Lag bruker',
+    'edit_user' => 'Endre bruker',
+    'user' => 'Bruker',
+
+    'labels' => [
+        'new' => 'Ny',
+        'search' => 'Søk...',
+        'actions' => 'Actions',
+        'showing' => 'Viser',
+        'optional' => 'Optional',
+        'name' => 'Navn',
+        'email' => 'E-post',
+        'password' => 'Passord',
+        'password_confirmation' => 'Bekreft passord',
+        'description' => 'Description',
+        'back' => 'Back',
+        'create' => 'Create',
+        'edit' => 'Endre',
+        'save' => 'Lagre',
+        'print' => 'Print',
+        'share' => 'Del',
+        'send' => 'Send',
+        'total' => 'Totalt',
+        'move' => 'Flytt',
+        'remove' => 'Slett',
+        'logo' => 'Logo Image',
+        'show' => 'Vis',
+        'duplicate' => 'Duplicate',
+        'view' => 'View',
+        'back_to_index' => 'Back to Index',
+    ],
+
+    'dialogs' => [
+        'are_you_sure' => 'Er du sikker?'
+    ],
+
+    'mail' => [
+        'received_estimate' => 'You received a new estimate. Please click the button below to see the estimate:',
+        'open_estimate' => 'Open Estimate',
+        'access_using_link' => 'Or access using the direct link:',
+        'regards' => 'Regards'
+    ]
+];

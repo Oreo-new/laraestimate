@@ -28,7 +28,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand mr-4" href="{{ url('/') }}">
-                    <img src="{{ asset('/images/logo.png') }}" alt="LaraEstimate Logo Image" height="40px">
+                    <img src="{{ asset('/images/kloner.png') }}" alt="Kloner estimate Logo Image" height="25px">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
