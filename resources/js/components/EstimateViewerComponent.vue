@@ -25,6 +25,10 @@
         width: 1.5em;
         height: 1.5em;
     }
+
+    .text-orange {
+        color: orange;
+    }
 </style>
 
 <template>
@@ -101,7 +105,23 @@
                             </table>
                         </div>
                     </section>
-                    
+                    <section>
+                        <hr>
+                        <div class="row">
+                            <div class="col-4">
+                                <span class="text-orange">Firma:</span> <span>Kloner As</span>
+                                <span class="text-orange">Kontaktperson:</span> <span>Alexander Ramsland</span>
+                            </div>
+                            <div class="col-4">
+                                <span class="text-orange">Org. nr:</span> <span>996 706 354</span>
+                                <span class="text-orange">E-post:</span> <span> <a href="mailto:alexander.ramsland@kloner.no">alexander.ramsland@kloner.no</a> </span>
+                            </div>
+                            <div class="col-4">
+                                <span class="text-orange">Nettside:</span> <span> <a href="http://www.kloner.no">www.kloner.no</a> </span>
+                                <span class="text-orange">Telefon:</span> <span>+47 22 65 30 08</span>    
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
