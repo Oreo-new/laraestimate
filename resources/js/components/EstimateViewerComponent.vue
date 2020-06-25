@@ -65,7 +65,7 @@
 
             <div class="row">
 
-                <div id="estimateDocument" class="col-md-8 offset-md-2 bg-white p-md-5 animated bounceIn" v-if="estimateData">
+                <div id="estimateDocument" class="col-md-8 offset-md-2 bg-white p-md-5 animated bounceIn fast" v-if="estimateData">
 
                     <section class="m-4 text-center" v-if="estimateData.logo_image">
                         <img :src="estimateData.logo_image" alt="Estimate Image" width="150px">
@@ -101,7 +101,6 @@
                             </table>
                         </div>
                     </section>
-                    
                 </div>
             </div>
         </div>
