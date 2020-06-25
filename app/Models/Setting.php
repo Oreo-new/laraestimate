@@ -14,6 +14,7 @@ class Setting extends Model implements HasMedia
         'currency_symbol',
         'currency_decimal_separator',
         'currency_thousands_separator',
+        'hourly_rate',
     ];
 
     public static function createDefault()

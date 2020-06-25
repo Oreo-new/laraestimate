@@ -33,6 +33,7 @@ return [
     'add_item' => 'Add Item',
     'add_text_section' => 'Add Text Section',
     'add_prices_section' => 'Add Prices Section',
+    'hourly_rate' => 'Hourly rate',
 
     'sending_email' => 'Sending E-mail...',
     'share_estimate' => 'Share Estimate',

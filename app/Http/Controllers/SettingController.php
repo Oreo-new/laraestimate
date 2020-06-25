@@ -25,6 +25,7 @@ class SettingController extends Controller
             'currency_symbol' => 'nullable|string',
             'currency_decimal_separator' => 'nullable|string',
             'currency_thousands_separator' => 'nullable|string',
+            'hourly_rate' => 'nullable|decimal',
         ]);
 
         if($setting = Setting::firstOrFail()) {

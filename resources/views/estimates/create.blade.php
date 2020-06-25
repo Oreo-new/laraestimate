@@ -52,6 +52,11 @@
                             <input name="currency_thousands_separator" type="text" class="form-control" value="{{ optional($setting)->currency_thousands_separator ?? '' }}">
                         </div>
 
+                        {{-- <div class="form-group">
+                            <label for="hourly_rate">@lang('app.hourly_rate')</label>
+                            <input name="hourly_rate" type="text" class="form-control" value="{{ optional($setting)->currency_thousands_separator ?? '' }}">
+                        </div> --}}
+
                         <a href="{{ route('estimates.index') }}" class="btn btn-outline-dark btn-lg mt-5"><i class="icon ion-md-arrow-back"></i> @lang('app.labels.back')</a>
                         <button type="submit" class="btn btn-primary btn-lg float-right mt-5">@lang('app.labels.create')</button>
 

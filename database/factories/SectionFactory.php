@@ -19,7 +19,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Section::class, function (Faker $faker) {
     return [
-        'text' => Str::title($faker->sentence(20)),
+        'text' => Str::title($faker->sentence(5)),
         'type' => 'text',
     ];
 });

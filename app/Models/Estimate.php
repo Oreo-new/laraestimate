@@ -20,6 +20,7 @@ class Estimate extends Model
         'currency_thousands_separator',
         'allows_to_select_items',
         'password',
+        'hourly_rate',
     ];
 
     protected $appends = [
@@ -70,6 +71,7 @@ class Estimate extends Model
             'symbol' => $this->currency_symbol ?? optional($setting)->currency_symbol,
             'decimal_separator' => $this->currency_decimal_separator ?? optional($setting)->currency_decimal_separator,
             'thousands_separator' => $this->currency_thousands_separator ?? optional($setting)->currency_thousands_separator,
+            'hourly_rate' => $this->currency_thousands_separator ?? optional($setting)->currency_thousands_separator,
         ];
     }
 

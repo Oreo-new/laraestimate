@@ -23,7 +23,7 @@ class CreateEstimatesTable extends Migration
             $table->string('currency_symbol')->nullable()->default('$');
             $table->string('currency_decimal_separator')->nullable()->default('.');
             $table->string('currency_thousands_separator')->nullable()->default('');
-
+            $table->decimal('hourly_rate')->nullable()->default(0);
             $table->boolean('allows_to_select_items')->default(true);
             $table->string('password')->nullable();
 
