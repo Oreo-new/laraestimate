@@ -2258,6 +2258,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -8784,7 +8788,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fixed-buttons {\n    position: fixed;\n    top: 0;\n    right: 0;\n    z-index: 1030;\n}\n#estimateMainSection {\n    min-height: 100vh;\n    background-color: #eee;\n}\n#estimateMainSection h1 {\n    text-align: left !important;\n    font-size: 1.5rem;\n}\n#estimateMainSection tr.item:not(.selected) {\n    color: #ccc;\n    text-decoration: line-through;\n}\n#estimateMainSection input[type=\"checkbox\"] {\n    width: 1.5em;\n    height: 1.5em;\n}\n.text-orange {\n    color: orange;\n}\n", ""]);
+exports.push([module.i, "\n.fixed-buttons {\n    position: fixed;\n    top: 0;\n    right: 0;\n    z-index: 1030;\n}\n#estimateMainSection {\n    min-height: 100vh;\n    background-color: #eee;\n}\n#estimateMainSection h1 {\n    text-align: left !important;\n    font-size: 1.5rem;\n}\n#estimateMainSection tr.item:not(.selected) {\n    color: #ccc;\n    text-decoration: line-through;\n}\n#estimateMainSection input[type=\"checkbox\"] {\n    width: 1.5em;\n    height: 1.5em;\n}\n.text-orange {\n    color: orange;\n}\n.footer-document{\n    margin-top: 100px;\n    padding-top: 10px;\n}\n", ""]);
 
 // exports
 
@@ -46371,14 +46375,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", [
+    return _c("section", { staticClass: "footer-document" }, [
       _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-4" }, [
           _c("span", { staticClass: "text-orange" }, [_vm._v("Firma:")]),
           _vm._v(" "),
-          _c("span", [_vm._v("Kloner As")]),
+          _c("span", [_vm._v("Kloner AS")]),
           _vm._v(" "),
           _c("span", { staticClass: "text-orange" }, [
             _vm._v("Kontaktperson:")

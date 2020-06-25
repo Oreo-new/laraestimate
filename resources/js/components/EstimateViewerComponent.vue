@@ -29,6 +29,10 @@
     .text-orange {
         color: orange;
     }
+    .footer-document{
+        margin-top: 100px;
+        padding-top: 10px;
+    }
 </style>
 
 <template>
@@ -104,12 +108,12 @@
                                 </tr>
                             </table>
                         </div>
-                    </section>
-                    <section>
+                    </section>      
+                    <section class="footer-document">
                         <hr>
                         <div class="row">
                             <div class="col-4">
-                                <span class="text-orange">Firma:</span> <span>Kloner As</span>
+                                <span class="text-orange">Firma:</span> <span>Kloner AS</span>
                                 <span class="text-orange">Kontaktperson:</span> <span>Alexander Ramsland</span>
                             </div>
                             <div class="col-4">
