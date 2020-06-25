@@ -105,8 +105,6 @@
                             </table>
                         </div>
                     </section>
-<<<<<<< HEAD
-=======
                     <section>
                         <hr>
                         <div class="row">
@@ -124,7 +122,6 @@
                             </div>
                         </div>
                     </section>
->>>>>>> e61d81fbc1b3c2ab84c3a1da117952e9692a94db
                 </div>
             </div>
         </div>

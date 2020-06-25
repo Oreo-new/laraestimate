@@ -2258,9 +2258,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -46341,11 +46338,8 @@ var render = function() {
                       ]
                     )
                   }),
-                  _vm._v("\n<<<<<<< HEAD\n=======\n                    "),
-                  _vm._m(1),
-                  _vm._v(
-                    "\n>>>>>>> e61d81fbc1b3c2ab84c3a1da117952e9692a94db\n                "
-                  )
+                  _vm._v(" "),
+                  _vm._m(1)
                 ],
                 2
               )
