@@ -43,6 +43,7 @@ return [
     'description' => 'Beskrivelse',
     'duration' => 'Antall',
     'price' => 'Pris',
+    'action' => 'handlinger',
     'section_total' => 'Totalpris',
     'create_user' => 'Lag bruker',
     'edit_user' => 'Endre bruker',

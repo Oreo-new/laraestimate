@@ -43,6 +43,7 @@ return [
     'description' => 'Description',
     'duration' => 'Duration',
     'price' => 'Price',
+    'action' => 'Actions',
     'section_total' => 'Section Total',
     'create_user' => 'Create User',
     'edit_user' => 'Edit User',
