@@ -27,11 +27,21 @@
     }
 
     .text-orange {
-        color: orange;
+        color: #FB6C2A;
     }
     .footer-document{
         margin-top: 100px;
         padding-top: 10px;
+    }
+    .footer-document .col-4 span {
+        font-size: 16px;
+    }
+    .footer-document .col-4 span a{
+        color: black;
+    }
+    .footer-document .col-4 span a:hover{
+        color: #1ABC9C;
+        text-decoration: none;
     }
 </style>
 
@@ -206,6 +216,7 @@ export default {
                 return section;
             });
 
+            // return console.log(data);
             return data;
         },
         treatData1(data) {
