@@ -19,7 +19,7 @@ class CreateEstimatesTable extends Migration
             $table->string('name');
             $table->boolean('use_name_as_title')->default(true);
             $table->date('expiration_date')->nullable();
-
+            $table->string('user')->nullable();
             $table->string('currency_symbol')->nullable()->default('$');
             $table->string('currency_decimal_separator')->nullable()->default('.');
             $table->string('currency_thousands_separator')->nullable()->default('');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasUUID;
 use App\Models\Scopes\Search;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -40,4 +41,9 @@ class User extends Authenticatable
     ];
 
     protected $searchableFields = ['name', 'email'];
+
+    public function estimate()
+    {
+        return $this->hasMany('App\Models\Estimate');
+    }
 }

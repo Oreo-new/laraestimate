@@ -2268,7 +2268,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       shareEmail: '',
       sendingEmail: false,
-      estimateData: null
+      estimateData: null,
+      userData: null
     };
   },
   created: function created() {
@@ -2310,6 +2311,10 @@ __webpack_require__.r(__webpack_exports__);
           _this3.renderPrices();
         });
       });
+      axios.get('/estimates/' + this.estimate + '/user').then(function (_ref2) {
+        var data = _ref2.data;
+        _this3.userData = _this3.treatData1(data);
+      });
     },
     treatData: function treatData(data) {
       data.sections = data.sections.map(function (section) {
@@ -2319,6 +2324,9 @@ __webpack_require__.r(__webpack_exports__);
         });
         return section;
       });
+      return data;
+    },
+    treatData1: function treatData1(data) {
       return data;
     },
     sectionTotal: function sectionTotal(section) {
@@ -46343,7 +46351,47 @@ var render = function() {
                     )
                   }),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c("section", { staticClass: "footer-document" }, [
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-4" }, [
+                        _c("span", { staticClass: "text-orange" }, [
+                          _vm._v("Firma:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Kloner AS")]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "text-orange" }, [
+                          _vm._v("Kontaktperson:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.userData.name))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-4" }, [
+                        _c("span", { staticClass: "text-orange" }, [
+                          _vm._v("Org. nr:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("996 706 354")]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "text-orange" }, [
+                          _vm._v("E-post:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _c(
+                            "a",
+                            { attrs: { href: "mailto:" + _vm.userData.email } },
+                            [_vm._v(_vm._s(_vm.userData.email))]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ])
+                  ])
                 ],
                 2
               )
@@ -46375,52 +46423,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "footer-document" }, [
-      _c("hr"),
+    return _c("div", { staticClass: "col-4" }, [
+      _c("span", { staticClass: "text-orange" }, [_vm._v("Nettside:")]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-4" }, [
-          _c("span", { staticClass: "text-orange" }, [_vm._v("Firma:")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("Kloner AS")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-orange" }, [
-            _vm._v("Kontaktperson:")
-          ]),
-          _vm._v(" "),
-          _c("span", [_vm._v("Alexander Ramsland")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-4" }, [
-          _c("span", { staticClass: "text-orange" }, [_vm._v("Org. nr:")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("996 706 354")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-orange" }, [_vm._v("E-post:")]),
-          _vm._v(" "),
-          _c("span", [
-            _c(
-              "a",
-              { attrs: { href: "mailto:alexander.ramsland@kloner.no" } },
-              [_vm._v("alexander.ramsland@kloner.no")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-4" }, [
-          _c("span", { staticClass: "text-orange" }, [_vm._v("Nettside:")]),
-          _vm._v(" "),
-          _c("span", [
-            _c("a", { attrs: { href: "http://www.kloner.no" } }, [
-              _vm._v("www.kloner.no")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-orange" }, [_vm._v("Telefon:")]),
-          _vm._v(" "),
-          _c("span", [_vm._v("+47 22 65 30 08")])
+      _c("span", [
+        _c("a", { attrs: { href: "http://www.kloner.no" } }, [
+          _vm._v("www.kloner.no")
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-orange" }, [_vm._v("Telefon:")]),
+      _vm._v(" "),
+      _c("span", [_vm._v("+47 22 65 30 08")])
     ])
   }
 ]

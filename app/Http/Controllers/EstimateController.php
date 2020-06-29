@@ -7,6 +7,7 @@ use App\Models\Estimate;
 use Illuminate\Http\Request;
 use App\Http\Requests\EstimateStoreRequest;
 use App\Http\Requests\EstimateUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EstimateController extends Controller
 {
@@ -27,8 +28,11 @@ class EstimateController extends Controller
 
     public function store(EstimateStoreRequest $request)
     {
+        
+        $user = Auth::user();
+        $request->request->add(['user' => $user->id]);
         $data = $request->all();
-
+        // dd($data);
         $estimate = Estimate::create($data);
 
         return redirect()

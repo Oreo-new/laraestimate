@@ -114,11 +114,11 @@
                         <div class="row">
                             <div class="col-4">
                                 <span class="text-orange">Firma:</span> <span>Kloner AS</span>
-                                <span class="text-orange">Kontaktperson:</span> <span>Alexander Ramsland</span>
+                                <span class="text-orange">Kontaktperson:</span> <span>{{ userData.name }}</span>
                             </div>
                             <div class="col-4">
                                 <span class="text-orange">Org. nr:</span> <span>996 706 354</span>
-                                <span class="text-orange">E-post:</span> <span> <a href="mailto:alexander.ramsland@kloner.no">alexander.ramsland@kloner.no</a> </span>
+                                <span class="text-orange">E-post:</span> <span> <a :href="`mailto:${userData.email}`">{{ userData.email }}</a> </span>
                             </div>
                             <div class="col-4">
                                 <span class="text-orange">Nettside:</span> <span> <a href="http://www.kloner.no">www.kloner.no</a> </span>
@@ -142,6 +142,7 @@ export default {
             shareEmail: '',
             sendingEmail: false,
             estimateData: null,
+            userData: null,
         }
     },
 
@@ -188,6 +189,10 @@ export default {
                     this.renderPrices();
                 })
             });
+            axios.get('/estimates/' + this.estimate + '/user').then(({data}) => {
+                this.userData =  this.treatData1(data);
+            });
+
         },
 
         treatData(data) {
@@ -202,6 +207,9 @@ export default {
             });
 
             return data;
+        },
+        treatData1(data) {
+           return data;
         },
 
         sectionTotal(section, onlySelected = true) {

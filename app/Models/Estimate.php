@@ -21,6 +21,7 @@ class Estimate extends Model
         'allows_to_select_items',
         'password',
         'hourly_rate',
+        'user',
     ];
 
     protected $appends = [
@@ -137,5 +138,9 @@ class Estimate extends Model
         $removeKeys = ['id', 'created_at', 'updated_at', 'password'];
         
         return array_diff_key($data, array_flip($removeKeys));
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'users_id');
     }
 }
