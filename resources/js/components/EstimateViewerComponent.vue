@@ -43,6 +43,16 @@
         color: #1ABC9C;
         text-decoration: none;
     }
+    .confirm{
+        border: 0;
+        color: #fff;
+        background: #159a80;
+        border-radius: 5px;
+    }
+    .confirm-by{
+        width: 50%;
+        margin-left: 10px;
+    }
 </style>
 
 <template>
@@ -103,6 +113,7 @@
                                     <th>{{ trans.get('app.description') }}</th>
                                     <th>{{ trans.get('app.duration') }}</th>
                                     <th class="text-right">{{ trans.get('app.price') }}</th>
+                                    <th class="text-right">{{ trans.get('app.action') }}</th>
                                 </tr>
 
                                 <tr v-for="item in section.items" :key="item.id" class="item" :class="{'selected': item.selected}">
@@ -110,11 +121,13 @@
                                     <td>{{ item.description || '-' }}</td>
                                     <td>{{ item.duration || '-' }}</td>
                                     <td class="text-right">{{ formattedPrice(item.price) || '-' }}</td>
+                                    <td><button class="confirm" :disabled='isDisabled'>confirm</button><input id='terms' type='text' :v-model='item.description' class="confirm-by"></input></td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3" class="text-right"><b>{{ trans.get('app.section_total') }}:</b></td>
                                     <td class="text-right">{{ formattedPrice(sectionTotal(section)) }}</td>
+                                    <td></td>
                                 </tr>
                             </table>
                         </div>
@@ -152,7 +165,8 @@ export default {
             shareEmail: '',
             sendingEmail: false,
             estimateData: null,
-            userData: null,
+            userData: [],
+            confirmee: '',
         }
     },
 
@@ -185,7 +199,12 @@ export default {
             }, 0);
 
             return total;
+        },
+
+        isDisabled: function(){
+            return !this.confirmee;
         }
+        
 
     },
 
