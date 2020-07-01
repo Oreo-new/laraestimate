@@ -2285,6 +2285,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -2293,7 +2297,11 @@ __webpack_require__.r(__webpack_exports__);
       sendingEmail: false,
       estimateData: null,
       userData: [],
-      confirmee: ''
+      confirmed_by: '',
+      newItem: {
+        'itemid': '',
+        'confirmedby': ''
+      }
     };
   },
   created: function created() {
@@ -2321,9 +2329,6 @@ __webpack_require__.r(__webpack_exports__);
         return sum + _this2.sectionTotal(section, true);
       }, 0);
       return total;
-    },
-    isDisabled: function isDisabled() {
-      return !this.confirmee;
     }
   },
   methods: {
@@ -2356,6 +2361,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     treatData1: function treatData1(data) {
       return data;
+    },
+    editItem: function editItem() {
+      var i_val = document.getElementById('itemid');
+      var i_name = document.getElementById('confirmedby');
+      console.log(confirmed_by);
     },
     sectionTotal: function sectionTotal(section) {
       var onlySelected = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -46346,24 +46356,68 @@ var render = function() {
                                         ),
                                         _vm._v(" "),
                                         _c("td", [
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass: "confirm",
-                                              attrs: {
-                                                disabled: _vm.isDisabled
-                                              }
-                                            },
-                                            [_vm._v("confirm")]
-                                          ),
-                                          _c("input", {
-                                            staticClass: "confirm-by",
-                                            attrs: {
-                                              id: "terms",
-                                              type: "text",
-                                              "v-model": item.description
-                                            }
-                                          })
+                                          !item.obligatory
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass: "confirm",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.editItem()
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("confirm")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          !item.obligatory
+                                            ? _c("input", {
+                                                attrs: {
+                                                  id: "itemid",
+                                                  type: "hidden",
+                                                  name: "itemid"
+                                                },
+                                                domProps: { value: item.id }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          !item.obligatory
+                                            ? _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: item.confirmed_by,
+                                                    expression:
+                                                      "item.confirmed_by"
+                                                  }
+                                                ],
+                                                staticClass: "confirm-by",
+                                                attrs: {
+                                                  id: "confirmedby",
+                                                  type: "text",
+                                                  name: "confirmed_by"
+                                                },
+                                                domProps: {
+                                                  value: item.confirmed_by
+                                                },
+                                                on: {
+                                                  input: function($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.$set(
+                                                      item,
+                                                      "confirmed_by",
+                                                      $event.target.value
+                                                    )
+                                                  }
+                                                }
+                                              })
+                                            : _vm._e()
                                         ])
                                       ]
                                     )

@@ -121,7 +121,11 @@
                                     <td>{{ item.description || '-' }}</td>
                                     <td>{{ item.duration || '-' }}</td>
                                     <td class="text-right">{{ formattedPrice(item.price) || '-' }}</td>
-                                    <td><button class="confirm" :disabled='isDisabled'>confirm</button><input id='terms' type='text' :v-model='item.description' class="confirm-by"></input></td>
+                                    <td>
+                                        <button class="confirm" v-if="!item.obligatory" @click="editItem()">confirm</button>
+                                        <input v-if="!item.obligatory" id='itemid' type='hidden' name="itemid" :value="item.id"></input>
+                                        <input v-if="!item.obligatory" id='confirmedby' type='text' v-model="item.confirmed_by" name="confirmed_by" class="confirm-by" ></input>
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -166,7 +170,8 @@ export default {
             sendingEmail: false,
             estimateData: null,
             userData: [],
-            confirmee: '',
+            confirmed_by:'',
+            newItem: { 'itemid': '','confirmedby': '' },
         }
     },
 
@@ -200,10 +205,6 @@ export default {
 
             return total;
         },
-
-        isDisabled: function(){
-            return !this.confirmee;
-        }
         
 
     },
@@ -241,7 +242,12 @@ export default {
         treatData1(data) {
            return data;
         },
-
+        editItem(){
+            var i_val = document.getElementById('itemid');
+            var i_name = document.getElementById('confirmedby');
+            
+            console.log(confirmed_by);
+        },
         sectionTotal(section, onlySelected = true) {
             let total = section.items.reduce((sum, item) => {
                 let itemPrice = (parseFloat(item.price) || 0);
