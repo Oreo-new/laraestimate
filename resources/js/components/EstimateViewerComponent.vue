@@ -122,7 +122,7 @@
                                     <td>{{ item.duration || '-' }}</td>
                                     <td class="text-right">{{ formattedPrice(item.price) || '-' }}</td>
                                     <td>
-                                        <button class="confirm" v-if="!item.obligatory" @click="editItem()">confirm</button>
+                                        <button class="confirm" v-if="!item.obligatory" @click="editItem(item.confirmed_by)">confirm</button>
                                         <input v-if="!item.obligatory" id='itemid' type='hidden' name="itemid" :value="item.id"></input>
                                         <input v-if="!item.obligatory" id='confirmedby' type='text' v-model="item.confirmed_by" name="confirmed_by" class="confirm-by" ></input>
                                     </td>
@@ -242,10 +242,7 @@ export default {
         treatData1(data) {
            return data;
         },
-        editItem(){
-            var i_val = document.getElementById('itemid');
-            var i_name = document.getElementById('confirmedby');
-            
+        editItem(confirmed_by){            
             console.log(confirmed_by);
         },
         sectionTotal(section, onlySelected = true) {
