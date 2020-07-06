@@ -14,6 +14,7 @@ class Item extends Model
         'duration',
         'price',
         'obligatory',
+        'confirmed_by',
     ];
 
     protected $casts = [

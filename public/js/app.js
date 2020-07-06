@@ -2289,6 +2289,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -2297,55 +2304,59 @@ __webpack_require__.r(__webpack_exports__);
       sendingEmail: false,
       estimateData: null,
       userData: [],
-      confirmed_by: '',
-      newItem: {
-        'itemid': '',
-        'confirmedby': ''
-      }
+      focusedd: false
     };
   },
   created: function created() {
+    var _this = this;
+
     window.addEventListener('beforeprint', this.preparePrintMode);
     window.addEventListener('afterprint', this.returnToViewMode);
+    Fire.$on('LoadEdit', function () {
+      _this.init();
+    });
   },
   mounted: function mounted() {
     this.init();
   },
   computed: {
     estimateTotalPrice: function estimateTotalPrice() {
-      var _this = this;
-
-      if (!this.estimateData.sections) return 0;
-      var total = this.estimateData.sections.reduce(function (sum, section) {
-        return sum + _this.sectionTotal(section, false);
-      }, 0);
-      return total;
-    },
-    estimateTotalSelectedPrice: function estimateTotalSelectedPrice() {
       var _this2 = this;
 
       if (!this.estimateData.sections) return 0;
       var total = this.estimateData.sections.reduce(function (sum, section) {
-        return sum + _this2.sectionTotal(section, true);
+        return sum + _this2.sectionTotal(section, false);
       }, 0);
       return total;
+    },
+    estimateTotalSelectedPrice: function estimateTotalSelectedPrice() {
+      var _this3 = this;
+
+      if (!this.estimateData.sections) return 0;
+      var total = this.estimateData.sections.reduce(function (sum, section) {
+        return sum + _this3.sectionTotal(section, true);
+      }, 0);
+      return total;
+    },
+    isDisabled: function isDisabled() {
+      console.log(item.confirmed_by);
     }
   },
   methods: {
     init: function init() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('/estimates/' + this.estimate + '/data').then(function (_ref) {
         var data = _ref.data;
-        _this3.estimateData = _this3.treatData(data);
+        _this4.estimateData = _this4.treatData(data);
 
-        _this3.$nextTick(function () {
-          _this3.renderPrices();
+        _this4.$nextTick(function () {
+          _this4.renderPrices();
         });
       });
       axios.get('/estimates/' + this.estimate + '/user').then(function (_ref2) {
         var data = _ref2.data;
-        _this3.userData = _this3.treatData1(data);
+        _this4.userData = _this4.treatData1(data);
       });
     },
     treatData: function treatData(data) {
@@ -2362,10 +2373,22 @@ __webpack_require__.r(__webpack_exports__);
     treatData1: function treatData1(data) {
       return data;
     },
-    editItem: function editItem() {
-      var i_val = document.getElementById('itemid');
-      var i_name = document.getElementById('confirmedby');
-      console.log(confirmed_by);
+    editItem: function editItem(item) {
+      if (item.confirmed_by) {
+        var url = '/itemedit/:item';
+        url = url.replace(':item', item.id);
+        axios.put(url, {
+          confirmed_by: item.confirmed_by
+        }).then(function (response) {
+          console.log("success");
+        })["catch"](function (error) {
+          console.log(error);
+        });
+        Fire.$emit('LoadEdit');
+      } else {
+        Fire.$emit('LoadEdit');
+        console.log("null");
+      }
     },
     sectionTotal: function sectionTotal(section) {
       var onlySelected = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -2385,15 +2408,15 @@ __webpack_require__.r(__webpack_exports__);
       return currencySettings.symbol + ' ' + formatMoney(price, 2, currencySettings.decimal_separator, currencySettings.thousands_separator).toString();
     },
     renderPrices: function renderPrices() {
-      var _this4 = this;
+      var _this5 = this;
 
       var totalPriceElements = document.querySelectorAll('.total-calc-price');
       var totalSelectedPriceElements = document.querySelectorAll('.total-selected-calc-price');
       totalPriceElements.forEach(function (priceElement) {
-        priceElement.innerHTML = _this4.formattedPrice(_this4.estimateTotalPrice);
+        priceElement.innerHTML = _this5.formattedPrice(_this5.estimateTotalPrice);
       });
       totalSelectedPriceElements.forEach(function (priceElement) {
-        priceElement.innerHTML = _this4.formattedPrice(_this4.estimateTotalSelectedPrice);
+        priceElement.innerHTML = _this5.formattedPrice(_this5.estimateTotalSelectedPrice);
       });
     },
     openShareModal: function openShareModal() {
@@ -2407,16 +2430,16 @@ __webpack_require__.r(__webpack_exports__);
       toast.success('Link copied successfully');
     },
     sendEmail: function sendEmail() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.sendingEmail = true;
       axios.post('/estimates/' + this.estimate + '/share', {
         'email': this.shareEmail
       }).then(function () {
-        _this5.sendingEmail = false;
+        _this6.sendingEmail = false;
         toast.success('E-mail sent successfully');
       })["catch"](function (error) {
-        _this5.sendingEmail = false;
+        _this6.sendingEmail = false;
         treatAxiosError(error);
       });
     },
@@ -8834,7 +8857,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fixed-buttons {\n    position: fixed;\n    top: 0;\n    right: 0;\n    z-index: 1030;\n}\n#estimateMainSection {\n    min-height: 100vh;\n    background-color: #eee;\n}\n#estimateMainSection h1 {\n    text-align: left !important;\n    font-size: 1.5rem;\n}\n#estimateMainSection tr.item:not(.selected) {\n    color: #ccc;\n    text-decoration: line-through;\n}\n#estimateMainSection input[type=\"checkbox\"] {\n    width: 1.5em;\n    height: 1.5em;\n}\n.text-orange {\n    color: #FB6C2A;\n}\n.footer-document{\n    margin-top: 100px;\n    padding-top: 10px;\n}\n.footer-document .col-4 span {\n    font-size: 16px;\n}\n.footer-document .col-4 span a{\n    color: black;\n}\n.footer-document .col-4 span a:hover{\n    color: #1ABC9C;\n    text-decoration: none;\n}\n.confirm{\n    border: 0;\n    color: #fff;\n    background: #159a80;\n    border-radius: 5px;\n}\n.confirm-by{\n    width: 50%;\n    margin-left: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.fixed-buttons {\n    position: fixed;\n    top: 0;\n    right: 0;\n    z-index: 1030;\n}\n#estimateMainSection {\n    min-height: 100vh;\n    background-color: #eee;\n}\n#estimateMainSection h1 {\n    text-align: left !important;\n    font-size: 1.5rem;\n}\n#estimateMainSection tr.item:not(.selected) {\n    color: #ccc;\n    text-decoration: line-through;\n}\n#estimateMainSection input[type=\"checkbox\"] {\n    width: 1.5em;\n    height: 1.5em;\n}\n.text-orange {\n    color: #FB6C2A;\n}\n.footer-document{\n    margin-top: 100px;\n    padding-top: 10px;\n}\n.footer-document .col-4 span {\n    font-size: 16px;\n}\n.footer-document .col-4 span a{\n    color: black;\n}\n.footer-document .col-4 span a:hover{\n    color: #1ABC9C;\n    text-decoration: none;\n}\n.confirm{\n    border: 0;\n    color: #fff;\n    background: #159a80;\n    border-radius: 5px;\n}\n.confirm-by{\n    width: 50%;\n    margin-left: 10px;\n}\n.confirmed{\n    margin: 0;\n    font-style: italic;\n    font-size: 14px;\n    text-align: right;\n}\n", ""]);
 
 // exports
 
@@ -46357,21 +46380,6 @@ var render = function() {
                                         _vm._v(" "),
                                         _c("td", [
                                           !item.obligatory
-                                            ? _c(
-                                                "button",
-                                                {
-                                                  staticClass: "confirm",
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.editItem()
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v("confirm")]
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          !item.obligatory
                                             ? _c("input", {
                                                 attrs: {
                                                   id: "itemid",
@@ -46403,6 +46411,12 @@ var render = function() {
                                                   value: item.confirmed_by
                                                 },
                                                 on: {
+                                                  focus: function($event) {
+                                                    _vm.focusedd = true
+                                                  },
+                                                  blur: function($event) {
+                                                    _vm.focusedd = false
+                                                  },
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -46417,6 +46431,40 @@ var render = function() {
                                                   }
                                                 }
                                               })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          !item.obligatory
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass: "confirm",
+                                                  attrs: {
+                                                    disabled: _vm.focusedd
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.editItem(item)
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("confirm")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.obligatory && item.confirmed_by
+                                            ? _c(
+                                                "p",
+                                                { staticClass: "confirmed" },
+                                                [
+                                                  _vm._v(
+                                                    "Confirmed by: " +
+                                                      _vm._s(
+                                                        item.confirmed_by
+                                                      ) +
+                                                      " "
+                                                  )
+                                                ]
+                                              )
                                             : _vm._e()
                                         ])
                                       ]
@@ -63120,6 +63168,7 @@ window.translate = new lang_js__WEBPACK_IMPORTED_MODULE_0___default.a({
   fallback: App.fallbackLocale
 });
 Vue.prototype.trans = window.translate;
+window.Fire = new Vue();
 /**
  * Auto loading components
  */

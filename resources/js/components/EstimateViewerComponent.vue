@@ -53,6 +53,12 @@
         width: 50%;
         margin-left: 10px;
     }
+    .confirmed{
+        margin: 0;
+        font-style: italic;
+        font-size: 14px;
+        text-align: right;
+    }
 </style>
 
 <template>
@@ -122,9 +128,10 @@
                                     <td>{{ item.duration || '-' }}</td>
                                     <td class="text-right">{{ formattedPrice(item.price) || '-' }}</td>
                                     <td>
-                                        <button class="confirm" v-if="!item.obligatory" @click="editItem(item.confirmed_by)">confirm</button>
                                         <input v-if="!item.obligatory" id='itemid' type='hidden' name="itemid" :value="item.id"></input>
-                                        <input v-if="!item.obligatory" id='confirmedby' type='text' v-model="item.confirmed_by" name="confirmed_by" class="confirm-by" ></input>
+                                        <input v-if="!item.obligatory" id='confirmedby' type='text' v-model="item.confirmed_by" v-on:focus="focusedd = true" v-on:blur="focusedd = false" name="confirmed_by" class="confirm-by" ></input>
+                                        <button class="confirm" v-if="!item.obligatory" :disabled="focusedd" @click="editItem(item)">confirm</button>
+                                        <p class="confirmed" v-if="item.obligatory && item.confirmed_by">Confirmed by: {{ item.confirmed_by }} </p>
                                     </td>
                                 </tr>
 
@@ -170,14 +177,16 @@ export default {
             sendingEmail: false,
             estimateData: null,
             userData: [],
-            confirmed_by:'',
-            newItem: { 'itemid': '','confirmedby': '' },
+            focusedd: false,
         }
     },
 
     created() {
         window.addEventListener('beforeprint', this.preparePrintMode);
         window.addEventListener('afterprint', this.returnToViewMode);
+        Fire.$on('LoadEdit', () => {
+            this.init();
+        });
     },
 
     mounted() {
@@ -205,7 +214,9 @@ export default {
 
             return total;
         },
-        
+        isDisabled: function(){
+            console.log(item.confirmed_by);
+        }
 
     },
 
@@ -242,8 +253,22 @@ export default {
         treatData1(data) {
            return data;
         },
-        editItem(confirmed_by){            
-            console.log(confirmed_by);
+        editItem(item){  
+            if(item.confirmed_by) {
+                let url = '/itemedit/:item';
+                url = url.replace(':item', item.id);
+                axios.put(url, {confirmed_by:item.confirmed_by} ).then(function (response) {
+                    console.log("success");
+                })["catch"](function (error) {
+                    console.log(error);
+                });  
+                Fire.$emit('LoadEdit');
+            } else {
+                Fire.$emit('LoadEdit');
+                console.log("null");
+            }      
+            
+                            
         },
         sectionTotal(section, onlySelected = true) {
             let total = section.items.reduce((sum, item) => {

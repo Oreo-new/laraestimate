@@ -17,7 +17,7 @@ window.translate = new Lang({
 });
 
 Vue.prototype.trans = window.translate;
-
+window.Fire = new Vue();
 /**
  * Auto loading components
  */
