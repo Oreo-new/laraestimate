@@ -2296,6 +2296,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -8857,7 +8893,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.fixed-buttons {\n    position: fixed;\n    top: 0;\n    right: 0;\n    z-index: 1030;\n}\n#estimateMainSection {\n    min-height: 100vh;\n    background-color: #eee;\n}\n#estimateMainSection h1 {\n    text-align: left !important;\n    font-size: 1.5rem;\n}\n#estimateMainSection tr.item:not(.selected) {\n    color: #ccc;\n    text-decoration: line-through;\n}\n#estimateMainSection input[type=\"checkbox\"] {\n    width: 1.5em;\n    height: 1.5em;\n}\n.text-orange {\n    color: #FB6C2A;\n}\n.footer-document{\n    margin-top: 100px;\n    padding-top: 10px;\n}\n.footer-document .col-4 span {\n    font-size: 16px;\n}\n.footer-document .col-4 span a{\n    color: black;\n}\n.footer-document .col-4 span a:hover{\n    color: #1ABC9C;\n    text-decoration: none;\n}\n.confirm{\n    border: 0;\n    color: #fff;\n    background: #159a80;\n    border-radius: 5px;\n}\n.confirm-by{\n    width: 50%;\n    margin-left: 10px;\n}\n.confirmed{\n    margin: 0;\n    font-style: italic;\n    font-size: 14px;\n    text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n.fixed-buttons {\n    position: fixed;\n    top: 0;\n    right: 0;\n    z-index: 1030;\n}\n#estimateMainSection {\n    min-height: 100vh;\n    background-color: #eee;\n}\n#estimateMainSection h1 {\n    text-align: left !important;\n    font-size: 1.5rem;\n}\n#estimateMainSection tr.item:not(.selected) {\n    color: #ccc;\n    text-decoration: line-through;\n}\n#estimateMainSection input[type=\"checkbox\"] {\n    width: 1.5em;\n    height: 1.5em;\n}\n.text-orange {\n    color: #FB6C2A;\n}\n.footer-document{\n    margin-top: 100px;\n    padding-top: 10px;\n}\n.footer-document .col-4 span {\n    font-size: 16px;\n}\n.footer-document .col-4 span a{\n    color: black;\n}\n.footer-document .col-4 span a:hover{\n    color: #1ABC9C;\n    text-decoration: none;\n}\n.confirm{\n    border: 0;\n    color: #fff;\n    background: #159a80;\n    border-radius: 5px;\n}\n.confirm-by{\n    width: 50%;\n    margin-left: 10px;\n}\n.confirmed{\n    margin: 0;\n    font-style: italic;\n    font-size: 14px;\n    text-align: right;\n}\n.text-over {\n    position: relative;\n    padding-top: 5px;\n    display: block;\n}\n.custom-border {\n    width: 180px;\n    position: absolute;\n    border-top: 2px solid #000;\n}\n.noScreen{\n    margin-top: 150px;\n}\n@media screen{\n.noPrint{}\n.noScreen{display:none;}\n}\n@media print {\n.noPrint{display:none;}\n.noScreen{}\n}\n", ""]);
 
 // exports
 
@@ -46510,6 +46546,8 @@ var render = function() {
                     )
                   }),
                   _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
                   _c("section", { staticClass: "footer-document" }, [
                     _c("hr"),
                     _vm._v(" "),
@@ -46548,7 +46586,7 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(1)
+                      _vm._m(2)
                     ])
                   ])
                 ],
@@ -46577,6 +46615,26 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "noScreen" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-8" }, [
+          _c("span", { staticClass: "custom-border" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-over" }, [_vm._v("Kunde")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }, [
+          _c("span", { staticClass: "custom-border" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-over" }, [_vm._v("Kloner AS")])
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this

@@ -59,6 +59,29 @@
         font-size: 14px;
         text-align: right;
     }
+    .text-over {
+        position: relative;
+        padding-top: 5px;
+        display: block;
+    }
+    .custom-border {
+        width: 180px;
+        position: absolute;
+        border-top: 2px solid #000;
+    }
+    
+    .noScreen{
+        margin-top: 150px;
+    }
+    @media screen{
+        .noPrint{}
+        .noScreen{display:none;}
+    }
+
+    @media print {
+        .noPrint{display:none;}
+        .noScreen{}
+    }
 </style>
 
 <template>
@@ -142,7 +165,20 @@
                                 </tr>
                             </table>
                         </div>
-                    </section>      
+                    </section>     
+                    <section class="noScreen">
+                        <div class="row">
+                           <div class="col-8">
+                                <span class="custom-border"></span>
+                                <span class="text-over">Kunde</span>
+                            </div> 
+                            <div class="col-4">
+                                <span class="custom-border"></span>
+                                <span class="text-over">Kloner AS</span>
+                            </div> 
+                        </div>
+                        
+                    </section> 
                     <section class="footer-document">
                         <hr>
                         <div class="row">
