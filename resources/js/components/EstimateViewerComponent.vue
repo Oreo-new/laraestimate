@@ -165,7 +165,7 @@
                         <div class="row">
                             <div class="col" style="text-align: right;">
                                 <div v-if="!hasNonObligatory(section) && hasConfirmedby(section)">
-                                    <p>Confirmed by: {{ getConfirmedBy(section) }} </p>
+                                    <p style="font-size: 16px; margin-top: 33px; font-style: italic;">Confirmed by: {{ getConfirmedBy(section) }} </p>
                                 </div>
                             </div>
                         </div>

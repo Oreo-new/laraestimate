@@ -46584,13 +46584,25 @@ var render = function() {
                               !_vm.hasNonObligatory(section) &&
                               _vm.hasConfirmedby(section)
                                 ? _c("div", [
-                                    _c("p", [
-                                      _vm._v(
-                                        "Confirmed by: " +
-                                          _vm._s(_vm.getConfirmedBy(section)) +
-                                          " "
-                                      )
-                                    ])
+                                    _c(
+                                      "p",
+                                      {
+                                        staticStyle: {
+                                          "font-size": "16px",
+                                          "margin-top": "33px",
+                                          "font-style": "italic"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "Confirmed by: " +
+                                            _vm._s(
+                                              _vm.getConfirmedBy(section)
+                                            ) +
+                                            " "
+                                        )
+                                      ]
+                                    )
                                   ])
                                 : _vm._e()
                             ]
