@@ -2332,6 +2332,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -2340,7 +2343,10 @@ __webpack_require__.r(__webpack_exports__);
       sendingEmail: false,
       estimateData: null,
       userData: [],
-      focusedd: false
+      focusedd: false,
+      checkItem: {},
+      proof: false,
+      userConfirm: []
     };
   },
   created: function created() {
@@ -2374,31 +2380,50 @@ __webpack_require__.r(__webpack_exports__);
       }, 0);
       return total;
     },
-    isDisabled: function isDisabled() {
-      console.log(item.confirmed_by);
+    checkTrue: function checkTrue() {
+      var _this4 = this;
+
+      return this.checkItem.filter(function (item) {
+        if (item.obligatory > 1) {
+          _this4.proof = true;
+          console.log(item);
+          return item;
+        } else {
+          _this4.proof = true;
+          console.log(item);
+          return item;
+        }
+      });
     }
   },
   methods: {
     init: function init() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get('/estimates/' + this.estimate + '/data').then(function (_ref) {
         var data = _ref.data;
-        _this4.estimateData = _this4.treatData(data);
+        _this5.estimateData = _this5.treatData(data);
 
-        _this4.$nextTick(function () {
-          _this4.renderPrices();
+        _this5.$nextTick(function () {
+          _this5.renderPrices();
         });
       });
       axios.get('/estimates/' + this.estimate + '/user').then(function (_ref2) {
         var data = _ref2.data;
-        _this4.userData = _this4.treatData1(data);
-      });
+        _this5.userData = _this5.treatData1(data);
+      }); // axios.get('/userconfirmation/' + this.estimate).then(({data}) => {
+      //     this.userData =  this.treatData2(data);
+      // });
     },
     treatData: function treatData(data) {
+      var _this6 = this;
+
       data.sections = data.sections.map(function (section) {
         section.items = section.items.map(function (item) {
           item.selected = true;
+          return item;
+        });
+        _this6.checkItem = section.items.map(function (item) {
           return item;
         });
         return section;
@@ -2406,25 +2431,26 @@ __webpack_require__.r(__webpack_exports__);
 
       return data;
     },
+    forConfirmation: function forConfirmation() {},
     treatData1: function treatData1(data) {
       return data;
     },
-    editItem: function editItem(item) {
-      if (item.confirmed_by) {
-        var url = '/itemedit/:item';
-        url = url.replace(':item', item.id);
-        axios.put(url, {
-          confirmed_by: item.confirmed_by
-        }).then(function (response) {
-          console.log("success");
-        })["catch"](function (error) {
-          console.log(error);
-        });
+    confirm: function confirm(section) {
+      console.log(section.id);
+      var url = '/confirm/:item';
+      url = url.replace(':item', section.id);
+      axios.put(url, {
+        estimate: this.estimate
+      }).then(function (response) {
+        console.log("success");
         Fire.$emit('LoadEdit');
-      } else {
-        Fire.$emit('LoadEdit');
-        console.log("null");
-      }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    treatData2: function treatData2(data) {
+      console.log(data);
+      return data;
     },
     sectionTotal: function sectionTotal(section) {
       var onlySelected = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -2444,15 +2470,15 @@ __webpack_require__.r(__webpack_exports__);
       return currencySettings.symbol + ' ' + formatMoney(price, 2, currencySettings.decimal_separator, currencySettings.thousands_separator).toString();
     },
     renderPrices: function renderPrices() {
-      var _this5 = this;
+      var _this7 = this;
 
       var totalPriceElements = document.querySelectorAll('.total-calc-price');
       var totalSelectedPriceElements = document.querySelectorAll('.total-selected-calc-price');
       totalPriceElements.forEach(function (priceElement) {
-        priceElement.innerHTML = _this5.formattedPrice(_this5.estimateTotalPrice);
+        priceElement.innerHTML = _this7.formattedPrice(_this7.estimateTotalPrice);
       });
       totalSelectedPriceElements.forEach(function (priceElement) {
-        priceElement.innerHTML = _this5.formattedPrice(_this5.estimateTotalSelectedPrice);
+        priceElement.innerHTML = _this7.formattedPrice(_this7.estimateTotalSelectedPrice);
       });
     },
     openShareModal: function openShareModal() {
@@ -2466,16 +2492,16 @@ __webpack_require__.r(__webpack_exports__);
       toast.success('Link copied successfully');
     },
     sendEmail: function sendEmail() {
-      var _this6 = this;
+      var _this8 = this;
 
       this.sendingEmail = true;
       axios.post('/estimates/' + this.estimate + '/share', {
         'email': this.shareEmail
       }).then(function () {
-        _this6.sendingEmail = false;
+        _this8.sendingEmail = false;
         toast.success('E-mail sent successfully');
       })["catch"](function (error) {
-        _this6.sendingEmail = false;
+        _this8.sendingEmail = false;
         treatAxiosError(error);
       });
     },
@@ -2507,6 +2533,87 @@ __webpack_require__.r(__webpack_exports__);
       estimate.classList.add('col-md-8');
       estimate.classList.add('offset-md-2');
       mainElement.classList.remove('bg-white');
+    },
+    hasNonObligatory: function hasNonObligatory(section) {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = section.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var item = _step.value;
+          if (!item.obligatory) return true;
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return false;
+    },
+    hasConfirmedby: function hasConfirmedby(section) {
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = section.items[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var item = _step2.value;
+          if (item.confirmed_by) return true;
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      return false;
+    },
+    getConfirmedBy: function getConfirmedBy(section) {
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = section.items[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var item = _step3.value;
+          return item.confirmed_by;
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+            _iterator3["return"]();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      return '';
     }
   }
 });
@@ -46300,12 +46407,6 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("th", { staticClass: "text-right" }, [
                                       _vm._v(_vm._s(_vm.trans.get("app.price")))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("th", { staticClass: "text-right" }, [
-                                      _vm._v(
-                                        _vm._s(_vm.trans.get("app.action"))
-                                      )
                                     ])
                                   ]),
                                   _vm._v(" "),
@@ -46412,97 +46513,7 @@ var render = function() {
                                               )
                                             )
                                           ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("td", [
-                                          !item.obligatory
-                                            ? _c("input", {
-                                                attrs: {
-                                                  id: "itemid",
-                                                  type: "hidden",
-                                                  name: "itemid"
-                                                },
-                                                domProps: { value: item.id }
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          !item.obligatory
-                                            ? _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.confirmed_by,
-                                                    expression:
-                                                      "item.confirmed_by"
-                                                  }
-                                                ],
-                                                staticClass: "confirm-by",
-                                                attrs: {
-                                                  id: "confirmedby",
-                                                  type: "text",
-                                                  name: "confirmed_by"
-                                                },
-                                                domProps: {
-                                                  value: item.confirmed_by
-                                                },
-                                                on: {
-                                                  focus: function($event) {
-                                                    _vm.focusedd = true
-                                                  },
-                                                  blur: function($event) {
-                                                    _vm.focusedd = false
-                                                  },
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "confirmed_by",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          !item.obligatory
-                                            ? _c(
-                                                "button",
-                                                {
-                                                  staticClass: "confirm",
-                                                  attrs: {
-                                                    disabled: _vm.focusedd
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.editItem(item)
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v("confirm")]
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          item.obligatory && item.confirmed_by
-                                            ? _c(
-                                                "p",
-                                                { staticClass: "confirmed" },
-                                                [
-                                                  _vm._v(
-                                                    "Confirmed by: " +
-                                                      _vm._s(
-                                                        item.confirmed_by
-                                                      ) +
-                                                      " "
-                                                  )
-                                                ]
-                                              )
-                                            : _vm._e()
-                                        ])
+                                        )
                                       ]
                                     )
                                   }),
@@ -46533,14 +46544,57 @@ var render = function() {
                                           )
                                         )
                                       )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td")
+                                    ])
                                   ])
                                 ],
                                 2
                               )
                             : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _vm.hasNonObligatory(section)
+                            ? _c("div", [
+                                _c("p", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "confirm",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.confirm(section)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("confirm")]
+                                  )
+                                ])
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col",
+                              staticStyle: { "text-align": "right" }
+                            },
+                            [
+                              !_vm.hasNonObligatory(section) &&
+                              _vm.hasConfirmedby(section)
+                                ? _c("div", [
+                                    _c("p", [
+                                      _vm._v(
+                                        "Confirmed by: " +
+                                          _vm._s(_vm.getConfirmedBy(section)) +
+                                          " "
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ]
+                          )
                         ])
                       ]
                     )
@@ -63777,8 +63831,8 @@ window.formatMoney = function (amount) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/clint/Documents/laravel/estimate/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/clint/Documents/laravel/estimate/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/clint/Projects/laravel/estimate/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/clint/Projects/laravel/estimate/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

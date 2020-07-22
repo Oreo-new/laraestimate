@@ -142,7 +142,6 @@
                                     <th>{{ trans.get('app.description') }}</th>
                                     <th>{{ trans.get('app.duration') }}</th>
                                     <th class="text-right">{{ trans.get('app.price') }}</th>
-                                    <th class="text-right">{{ trans.get('app.action') }}</th>
                                 </tr>
 
                                 <tr v-for="item in section.items" :key="item.id" class="item" :class="{'selected': item.selected}">
@@ -150,22 +149,27 @@
                                     <td>{{ item.description || '-' }}</td>
                                     <td>{{ item.duration || '-' }}</td>
                                     <td class="text-right">{{ formattedPrice(item.price) || '-' }}</td>
-                                    <td>
-                                        <input v-if="!item.obligatory" id='itemid' type='hidden' name="itemid" :value="item.id"></input>
-                                        <input v-if="!item.obligatory" id='confirmedby' type='text' v-model="item.confirmed_by" v-on:focus="focusedd = true" v-on:blur="focusedd = false" name="confirmed_by" class="confirm-by" ></input>
-                                        <button class="confirm" v-if="!item.obligatory" :disabled="focusedd" @click="editItem(item)">confirm</button>
-                                        <p class="confirmed" v-if="item.obligatory && item.confirmed_by">Confirmed by: {{ item.confirmed_by }} </p>
-                                    </td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="3" class="text-right"><b>{{ trans.get('app.section_total') }}:</b></td>
                                     <td class="text-right">{{ formattedPrice(sectionTotal(section)) }}</td>
-                                    <td></td>
                                 </tr>
                             </table>
                         </div>
-                    </section>     
+                        <div>
+                            <div v-if="hasNonObligatory(section)">
+                                <p><button class="confirm" @click="confirm(section)" >confirm</button></p>
+                            </div>     
+                        </div>
+                        <div class="row">
+                            <div class="col" style="text-align: right;">
+                                <div v-if="!hasNonObligatory(section) && hasConfirmedby(section)">
+                                    <p>Confirmed by: {{ getConfirmedBy(section) }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section> 
                     <section class="noScreen">
                         <div class="row">
                            <div class="col-8">
@@ -177,7 +181,6 @@
                                 <span class="text-over">Kloner AS</span>
                             </div> 
                         </div>
-                        
                     </section> 
                     <section class="footer-document">
                         <hr>
@@ -214,6 +217,9 @@ export default {
             estimateData: null,
             userData: [],
             focusedd: false,
+            checkItem: {},
+            proof: false,
+            userConfirm: [],
         }
     },
 
@@ -250,9 +256,22 @@ export default {
 
             return total;
         },
-        isDisabled: function(){
-            console.log(item.confirmed_by);
-        }
+        
+        checkTrue() {
+			return this.checkItem.filter(item => {
+                if(item.obligatory > 1) {
+                   
+                    this.proof = true;
+                    console.log(item);
+                    return item;
+                } else {
+                    this.proof = true;
+                    console.log(item);
+                    return item;
+                }
+                
+            });
+        },
 
     },
 
@@ -269,9 +288,11 @@ export default {
             axios.get('/estimates/' + this.estimate + '/user').then(({data}) => {
                 this.userData =  this.treatData1(data);
             });
+            // axios.get('/userconfirmation/' + this.estimate).then(({data}) => {
+            //     this.userData =  this.treatData2(data);
+            // });
 
         },
-
         treatData(data) {
             data.sections = data.sections.map(section => {
                 
@@ -279,32 +300,36 @@ export default {
                     item.selected = true ;
                     return item;
                 });
-                
+
+                this.checkItem = section.items.map(item => { 
+                    return item;
+                });
                 return section;
             });
 
             // return console.log(data);
             return data;
         },
+        forConfirmation(){
+            
+        },
         treatData1(data) {
            return data;
         },
-        editItem(item){  
-            if(item.confirmed_by) {
-                let url = '/itemedit/:item';
-                url = url.replace(':item', item.id);
-                axios.put(url, {confirmed_by:item.confirmed_by} ).then(function (response) {
-                    console.log("success");
-                })["catch"](function (error) {
-                    console.log(error);
-                });  
+        confirm(section){
+            console.log(section.id);
+            let url = '/confirm/:item';
+            url = url.replace(':item', section.id);
+            axios.put(url, {estimate: this.estimate}).then(function (response) {
+                console.log("success");
                 Fire.$emit('LoadEdit');
-            } else {
-                Fire.$emit('LoadEdit');
-                console.log("null");
-            }      
-            
-                            
+            })["catch"](function (error) {
+                console.log(error);
+            });  
+        },
+        treatData2(data) {
+            console.log(data);
+           return data;
         },
         sectionTotal(section, onlySelected = true) {
             let total = section.items.reduce((sum, item) => {
@@ -406,6 +431,26 @@ export default {
             estimate.classList.add('offset-md-2');
 
             mainElement.classList.remove('bg-white');
+        },
+
+        hasNonObligatory(section) {
+            for (const item of section.items) {
+                if(!item.obligatory) return true
+            }
+            return false
+        },
+        hasConfirmedby(section) {
+            for (const item of section.items) {
+                if(item.confirmed_by) return true
+            }
+            return false
+        },
+
+        getConfirmedBy(section) {
+            for (const item of section.items) {
+                return item.confirmed_by
+            }
+            return ''
         }
 
     }

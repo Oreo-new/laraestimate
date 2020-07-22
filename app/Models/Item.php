@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {
@@ -34,4 +35,7 @@ class Item extends Model
     {
         return $this->belongsTo(Section::class);
     }
+    // public function confirmUpdate($section_id){
+    //     return \DB::update("UPDATE `{$table}` SET `value` = CASE `id` {$cases} END, `updated_at` = ? WHERE `id` in ({$ids})", $params);
+    // }
 }

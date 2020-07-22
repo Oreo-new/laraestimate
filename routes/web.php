@@ -51,4 +51,5 @@ Route::get('estimates/{estimate}/data', 'EstimateViewerController@getData');
 Route::get('estimates/{estimate}/user', 'EstimateViewerController@getUser');
 Route::get('estimates/{estimate}/view', 'EstimateViewerController@show')->name('estimates.view');
 Route::post('estimates/{estimate}/share', 'EstimateViewerController@share')->name('estimates.share');
-Route::put('itemedit/{id}', 'ItemController@update');
+Route::put('confirm/{id}', 'ConfirmationController@store');
+Route::get('userconfirmation/{id}', 'ConfirmationController@show');
