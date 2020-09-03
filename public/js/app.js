@@ -2341,6 +2341,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate', 'canShareEmail'],
   data: function data() {
@@ -46384,7 +46385,7 @@ var render = function() {
                           " kr " + _vm._s(_vm.estimateData.hourly_rate) + " "
                         )
                       ])
-                    : _vm._e(),
+                    : _c("p", { staticClass: "noScreen" }),
                   _vm._v(" "),
                   _vm._l(_vm.estimateData.sections, function(section) {
                     return _c(
