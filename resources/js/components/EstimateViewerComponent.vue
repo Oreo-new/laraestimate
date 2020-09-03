@@ -131,7 +131,7 @@
                     <section class="mb-5" v-if="estimateData.use_name_as_title">
                         <h1><b>{{ estimateData.name }}</b></h1>
                     </section>
-
+                    <p v-if="estimateData.hourly_rate != 0.00"><strong>Timepris:</strong> kr {{ estimateData.hourly_rate }} </p>
                     <section class="mb-5" v-for="section in estimateData.sections" :key="section.id">
                         <p v-html="section.presentable_text"></p>
                         

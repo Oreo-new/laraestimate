@@ -1991,6 +1991,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['estimate'],
@@ -2087,6 +2092,7 @@ __webpack_require__.r(__webpack_exports__);
         sections_positions: this.calculateSectionsPositions(),
         currency_symbol: this.estimateData.currency_settings.symbol,
         currency_decimal_separator: this.estimateData.currency_settings.decimal_separator,
+        hourly_rate: this.estimateData.hourly_rate,
         currency_thousands_separator: this.estimateData.currency_settings.thousands_separator
       }).then(function (data) {
         toast.success('Estimate saved successfully');
@@ -45976,7 +45982,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-4" }, [
             _c("label", { attrs: { for: "currency_decimal_separator" } }, [
-              _vm._v(_vm._s(_vm.trans.get("app.currency_decimal_separator")))
+              _vm._v(_vm._s(_vm.trans.get("app.hourly_rate")))
             ]),
             _vm._v(" "),
             _c("input", {
@@ -45984,15 +45990,13 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.estimateData.currency_settings.decimal_separator,
-                  expression: "estimateData.currency_settings.decimal_separator"
+                  value: _vm.estimateData.hourly_rate,
+                  expression: "estimateData.hourly_rate"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: {
-                value: _vm.estimateData.currency_settings.decimal_separator
-              },
+              domProps: { value: _vm.estimateData.hourly_rate },
               on: {
                 input: [
                   function($event) {
@@ -46000,8 +46004,8 @@ var render = function() {
                       return
                     }
                     _vm.$set(
-                      _vm.estimateData.currency_settings,
-                      "decimal_separator",
+                      _vm.estimateData,
+                      "hourly_rate",
                       $event.target.value
                     )
                   },
@@ -46370,6 +46374,15 @@ var render = function() {
                         _c("h1", [
                           _c("b", [_vm._v(_vm._s(_vm.estimateData.name))])
                         ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.estimateData.hourly_rate != 0.0
+                    ? _c("p", [
+                        _c("strong", [_vm._v("Timepris:")]),
+                        _vm._v(
+                          " kr " + _vm._s(_vm.estimateData.hourly_rate) + " "
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),

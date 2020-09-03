@@ -33,7 +33,7 @@ return [
     'add_item' => 'Add Item',
     'add_text_section' => 'Add Text Section',
     'add_prices_section' => 'Add Prices Section',
-    'hourly_rate' => 'timepris',
+    'hourly_rate' => 'Timepris',
 
     'sending_email' => 'Sender e-post...',
     'share_estimate' => 'Del estimat',

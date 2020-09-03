@@ -66,7 +66,7 @@ return [
         /**
          * Default locale for export.
          */
-        'default_locale' => 'en',
+        'default_locale' => 'no',
 
         /**
          * root location to where JavaScript file will be exported.

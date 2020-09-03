@@ -42,20 +42,20 @@
                             <input name="currency_symbol" type="text" class="form-control" value="{{ optional($setting)->currency_symbol ?? '$' }}">
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="currency_decimal_separator">@lang('app.currency_decimal_separator')</label>
                             <input name="currency_decimal_separator" type="text" class="form-control" value="{{ optional($setting)->currency_decimal_separator ?? '.' }}">
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="currency_thousands_separator">@lang('app.currency_thousands_separator')</label>
                             <input name="currency_thousands_separator" type="text" class="form-control" value="{{ optional($setting)->currency_thousands_separator ?? '' }}">
                         </div>
 
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label for="hourly_rate">@lang('app.hourly_rate')</label>
-                            <input name="hourly_rate" type="text" class="form-control" value="{{ optional($setting)->currency_thousands_separator ?? '' }}">
-                        </div> --}}
+                            <input name="hourly_rate" type="text" class="form-control" value="">
+                        </div>
 
                         <a href="{{ route('estimates.index') }}" class="btn btn-outline-dark btn-lg mt-5"><i class="icon ion-md-arrow-back"></i> @lang('app.labels.back')</a>
                         <button type="submit" class="btn btn-primary btn-lg float-right mt-5">@lang('app.labels.create')</button>

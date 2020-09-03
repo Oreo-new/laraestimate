@@ -34,9 +34,14 @@
                 <input type="text" class="form-control" v-model="estimateData.currency_settings.symbol" @input="updateDebounced()">
             </div>
 
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
                 <label for="currency_decimal_separator">{{ trans.get('app.currency_decimal_separator') }}</label>
                 <input type="text" class="form-control" v-model="estimateData.currency_settings.decimal_separator" @input="updateDebounced()">
+            </div> -->
+
+             <div class="form-group col-md-4">
+                <label for="currency_decimal_separator">{{ trans.get('app.hourly_rate') }}</label>
+                <input type="text" class="form-control" v-model="estimateData.hourly_rate" @input="updateDebounced()">
             </div>
 
             <div class="form-group col-md-4">
@@ -191,6 +196,7 @@ export default {
                 sections_positions: this.calculateSectionsPositions(),
                 currency_symbol: this.estimateData.currency_settings.symbol,
                 currency_decimal_separator: this.estimateData.currency_settings.decimal_separator,
+                hourly_rate: this.estimateData.hourly_rate,
                 currency_thousands_separator: this.estimateData.currency_settings.thousands_separator,
             }).then(data => {
                 toast.success('Estimate saved successfully');
